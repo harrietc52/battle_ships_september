@@ -6,7 +6,12 @@ class BattleshipWeb < Sinatra::Base
   end
 
   get '/name' do
+  	@name = params[:name]
     erb :name_form
+  end
+
+  get '/board' do
+  	erb :board
   end
 
   set :views, proc { File.join(root, '..', 'views')}
