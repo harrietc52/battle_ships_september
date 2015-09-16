@@ -3,6 +3,7 @@ require_relative 'board'
 require_relative 'ship'
 require_relative 'cell'
 require_relative 'water'
+require_relative 'htmlprinter'
 
 class BattleshipWeb < Sinatra::Base
 
@@ -35,9 +36,9 @@ class BattleshipWeb < Sinatra::Base
     board.shoot_at(:A4)
     board.shoot_at(:J2)
 
-    @results = board.show_board
-    @results += "<div style='width:10px; float: left'></div>"
-    @results += board.show_opponent_board
+    @results = board.show_board(Printer)
+    # @results += "<div style='width:10px; float: left'></div>"
+    # @results += board.show_opponent_board
 
     erb :board_example
   end
