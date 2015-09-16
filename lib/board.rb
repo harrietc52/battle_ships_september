@@ -4,7 +4,10 @@ class Board
 	def initialize(content)
 		@grid = {}
 		[*"A".."J"].each do |l|
-			[*1..10].each {|n| @grid["#{l}#{n}".to_sym] = content.new}
+			[*1..10].each do |n|
+				@grid["#{l}#{n}".to_sym] = content.new
+					@grid["#{l}#{n}".to_sym].content = Water.new
+			end
 		end
 	end
 
@@ -12,6 +15,21 @@ class Board
 		coords = [coord]
 		(ship.size - 1).times{coords << next_coord(coords.last, orientation)}
 		put_on_grid_if_possible(coords, ship)
+	end
+
+	def show_board
+		results = "<div style='width:440px;'>"
+		[*"A".."J"].each do |l|
+			[*1..10].each do |n|
+					if @grid["#{l}#{n}".to_sym].content.is_a?(Water)
+						results += "<div style='background-color:#0000FF; height:40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
+					else
+						results += "<div style='background-color:#008800; height:40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
+					end
+			end
+		end
+		results += "</div>"
+		results
 	end
 
 	def floating_ships?
@@ -31,6 +49,7 @@ class Board
 		ships.count
 	end
 
+
 private
 
  	def next_coord(coord, orientation)
@@ -42,7 +61,7 @@ private
 	end
 
 	def is_a_ship?(cell)
-		cell.content.respond_to?(:sunk?) 
+		cell.content.respond_to?(:sunk?)
 	end
 
 	def any_coord_not_on_grid?(coords)
@@ -64,4 +83,3 @@ private
 	end
 
 end
-
