@@ -9,6 +9,8 @@ class BattleshipWeb < Sinatra::Base
 
   enable :sessions
 
+  $board = Board.new(Cell)
+
   set :views, proc { File.join(root, '..', 'views')}
 
   get '/' do
@@ -46,20 +48,32 @@ class BattleshipWeb < Sinatra::Base
   end
 
   get '/ship_placement' do
-    if session[:board] != nil
-      puts "IT IS NOT SAVED!!!!"
+
+    if params[:position] == nil
+      p "Params is still nil"
+    else
+      ship = Ship.new(4)
+      $board.place(ship, params[:position].to_sym)
+      p "Ship placed"
     end
-    session[:board] = Board.new(Cell) if session[:board] == nil
-    # ship = Ship.new(4)
-    # session[:board].place(ship,:A2) if session[:board].ships_count == 0
-    @board = 'SHIP PLACEMENT'
+
+    @show_board = $board.show_board(Printer)
     erb :ship_placement
+
   end
 
-  get '/test' do
-    @board = session[:board].show_board(Printer)
-    erb :ship_placement
-  end
+    # if session[:board] != nil
+    #   puts "IT IS NOT SAVED!!!!"
+    # end
+    # session[:board] = Board.new(Cell) if session[:board] == nil
+    # # ship = Ship.new(4)
+    # # session[:board].place(ship,:A2) if session[:board].ships_count == 0
+    # @board = 'SHIP PLACEMENT'
+    # erb :ship_placement
+
+  # get '/test' do
+  #
+  # end
 
   # get '/show_board' do
   #   puts ''
