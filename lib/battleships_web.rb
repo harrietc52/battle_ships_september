@@ -36,6 +36,8 @@ class BattleshipWeb < Sinatra::Base
     board.shoot_at(:J2)
 
     @results = board.show_board
+    @results += "<div style='width:10px; float: left'></div>"
+    @results += board.show_opponent_board
 
     erb :board_example
   end
