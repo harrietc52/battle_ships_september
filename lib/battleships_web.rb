@@ -7,6 +7,8 @@ require_relative 'htmlprinter'
 
 class BattleshipWeb < Sinatra::Base
 
+  enable :sessions
+
   set :views, proc { File.join(root, '..', 'views')}
 
   get '/' do
@@ -42,6 +44,33 @@ class BattleshipWeb < Sinatra::Base
 
     erb :board_example
   end
+
+  get '/ship_placement' do
+    if session[:board] != nil
+      puts "IT IS NOT SAVED!!!!"
+    end
+    session[:board] = Board.new(Cell) if session[:board] == nil
+    # ship = Ship.new(4)
+    # session[:board].place(ship,:A2) if session[:board].ships_count == 0
+    @board = 'SHIP PLACEMENT'
+    erb :ship_placement
+  end
+
+  get '/test' do
+    @board = session[:board].show_board(Printer)
+    erb :ship_placement
+  end
+
+  # get '/show_board' do
+  #   puts ''
+  #   puts ''
+  #   puts ''
+  #   p session[:board]
+  #   ship = Ship.new(4)
+  #   # session[:board].place(ship, params[:position].to_sym)
+  #   # @show_board = session[:board].show_board(Printer)
+  #   erb :show_board
+  # end
 
   # start the server if ruby file executed directly
   run! if app_file == $0
