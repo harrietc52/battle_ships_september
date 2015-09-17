@@ -1,7 +1,18 @@
 <form action="/ship_placement">
-  Enter ship position please
-  <input type="text" name="position" required>
-  <input type="submit" value="Submit">
+  Choose type of ship
+  <select name="type">
+    <option value="aircraft_carrier">Aircraft Carrier (5)</option>
+    <option value="battleship">Battleship (4)</option>
+    <option value="destroyer">Destroyer (3)</option>
+    <option value="submarine">Submarine (3)</option>
+    <option value="patrol_boat">Patrol Boat (2)</option>
+  </select>
+  <p>Enter ship position (e.g D4)
+  <input type="text" name="position" size="4" maxlength="3" required>
+  <p>Choose orientation:
+  <input type="radio" name="orientation" value="horizontal">Horizontal
+  <input type="radio" name="orientation" value="vertical">Vertical</p>
+  <input type="submit" value="Submit"></p>
 </form>
 <div style='height:10px;'></div>
 <%= @show_board %>

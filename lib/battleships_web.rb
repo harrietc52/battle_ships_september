@@ -50,11 +50,9 @@ class BattleshipWeb < Sinatra::Base
   get '/ship_placement' do
 
     if params[:position] == nil
-      p "Params is still nil"
     else
       ship = Ship.new(4)
       $board.place(ship, params[:position].to_sym)
-      p "Ship placed"
     end
 
     @show_board = $board.show_board(Printer)
