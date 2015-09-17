@@ -52,13 +52,24 @@ class BattleshipWeb < Sinatra::Base
 
     @name = session[:name]
 
-    if params[:position] == nil
+    if params[:position] == nil then
+      #initialise ships
+      session[:fleet] = [[:aircraft_carrier, 'Aircraft Carrier (5)'],
+                         [:battleship, 'Battleship (4)'],
+                         [:destroyer, 'Destroyer (3)'],
+                         [:submarine, 'Submarine (3)'],
+                         [:patrol_boat, 'Patrol Boat (2)']]
+    @fleet = session[:fleet]
+
     else
+      @fleet = session[:fleet]
       ship = Ship.send(params[:type].to_sym)
       $board.place(ship, params[:position].to_sym, params[:orientation].to_sym)
+      session[:fleet].delete_if{ |item| item[0] == params[:type].to_sym}
     end
 
     @show_board = $board.show_board(Printer)
+
     erb :ship_placement
 
   end

@@ -40,4 +40,14 @@ feature 'Starting a new game' do
     expect(page).to have_content 'Place your ships, Harry.'
   end
 
+  scenario 'Remove ship type from drop down when placed' do
+    visit '/name'
+    fill_in('name', :with => 'Harry')
+    click_button 'Submit'
+    click_button 'Start'
+    fill_in('position', :with => 'A1')
+    click_button 'Submit'
+    expect(page).to have_no_content 'Aircraft Carrier (5)'
+  end
+
 end
