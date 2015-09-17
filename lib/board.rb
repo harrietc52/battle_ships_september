@@ -67,7 +67,7 @@ class Board
 private
 
  	def next_coord(coord, orientation)
-		orientation == :vertically ? next_vertical(coord) : coord.next
+		orientation == :vertically ? next_vertical(coord) : (coord.to_s[0] + (coord.to_s[-1].to_i + 1).to_s).to_sym
 	end
 
 	def next_vertical(coord)
