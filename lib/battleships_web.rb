@@ -51,8 +51,8 @@ class BattleshipWeb < Sinatra::Base
 
     if params[:position] == nil
     else
-      ship = Ship.new(4)
-      $board.place(ship, params[:position].to_sym)
+      ship = Ship.send(params[:type].to_sym)
+      $board.place(ship, params[:position].to_sym, params[:orientation].to_sym)
     end
 
     @show_board = $board.show_board(Printer)
