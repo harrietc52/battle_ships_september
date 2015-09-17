@@ -12,5 +12,8 @@
       <input type="submit" value="Submit">
     </form>
 <% else %>
-    <%= @name %>'s Game!
+    <form action="/ship_placement">
+      Hello <%= @name %>! Please press 'start' to begin your game:
+      <input type="submit" value="Start">
+    </form>
 <% end %>

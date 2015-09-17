@@ -13,7 +13,7 @@ feature 'Starting a new game' do
     click_link 'New Game'
   	fill_in('name', :with => 'Harry')
   	click_button 'Submit'
-  	expect(page).to have_content "Harry's Game!"
+  	expect(page).to have_content "Hello Harry!"
   end
 
   scenario 'Does not receive name' do
@@ -24,9 +24,20 @@ feature 'Starting a new game' do
     expect(page).to have_content 'Please enter your name'
   end
 
-  scenario 'Shows board' do
-    visit '/board_example'
-    # expect(page).to have_content 'Place holder: board'
+  scenario 'Goes to ship placement when start button is pressed' do
+    visit '/name'
+    fill_in('name', :with => 'Harry')
+  	click_button 'Submit'
+    click_button 'Start'
+    expect(page).to have_content 'Choose type of ship:'
+  end
+
+  scenario 'Ship placement page remembers player\'s name' do
+    visit '/name'
+    fill_in('name', :with => 'Harry')
+  	click_button 'Submit'
+    click_button 'Start'
+    expect(page).to have_content 'Place your ships, Harry.'
   end
 
 end

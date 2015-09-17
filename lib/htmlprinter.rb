@@ -1,14 +1,15 @@
 class Printer
   def print_board(board)
     # printer.show_board
-    results = "<div style='; width: 440px; float: left;'>"
-    # results += "<div style='background-color:#DCDCDC; height: 40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
+    results = "<div style='width: 482px; float: left;'>"
+    results += "<div style='background-color:#DCDCDC; height: 40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
 
     [*1..10].each do |x|
-      results += "<div style='background-color:#DCDCDC; height: 40px; width:40px; display:inline-block; border: 1px solid white; text-align: center; font: 20px sans-serif;'>#{x}</div>"
+      results += "<div style='background-color:#DCDCDC; height: 40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
     end
 
     [*"A".."J"].each do |l|
+      results += "<div style='background-color:#DCDCDC; height: 40px; width:40px; display:inline-block; border: 1px solid white;'> </div>"
       [*1..10].each do |n|
           if board.grid["#{l}#{n}".to_sym].content.is_a?(Water)
             if board.grid["#{l}#{n}".to_sym].hit == true

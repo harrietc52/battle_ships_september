@@ -19,6 +19,7 @@ class BattleshipWeb < Sinatra::Base
 
   get '/name' do
   	@name = params[:name]
+    session[:name] = params[:name]
     erb :new_game
   end
 
@@ -48,6 +49,8 @@ class BattleshipWeb < Sinatra::Base
   end
 
   get '/ship_placement' do
+
+    @name = session[:name]
 
     if params[:position] == nil
     else
