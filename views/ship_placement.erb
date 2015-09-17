@@ -1,4 +1,7 @@
 <h3>Place your ships, <%= @name %>.</h3>
+ <% if @error != nil %>
+ <p><%= @error %></p>
+ <% end %>
 <form action="/ship_placement">
   <p>Choose type of ship:
   <select name="type">

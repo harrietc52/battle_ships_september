@@ -51,6 +51,7 @@ class BattleshipWeb < Sinatra::Base
   get '/ship_placement' do
 
     @name = session[:name]
+    @error = session[:error_message]
 
     if params[:position] == nil then
       #initialise ships
@@ -64,8 +65,12 @@ class BattleshipWeb < Sinatra::Base
     else
       @fleet = session[:fleet]
       ship = Ship.send(params[:type].to_sym)
-      $board.place(ship, params[:position].to_sym, params[:orientation].to_sym)
-      session[:fleet].delete_if{ |item| item[0] == params[:type].to_sym}
+      begin
+        $board.place(ship, params[:position].to_sym, params[:orientation].to_sym)
+        session[:fleet].delete_if{ |item| item[0] == params[:type].to_sym}
+      rescue
+        session[:error_message] = "There is an error"
+      end
     end
 
     @show_board = $board.show_board(Printer)
