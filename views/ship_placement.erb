@@ -2,6 +2,7 @@
  <% if @error != nil %>
  <p><%= @error %></p>
  <% end %>
+<% unless @fleet.empty? %>
 <form action="/ship_placement">
   <p>Choose type of ship:
   <select name="type">
@@ -16,4 +17,12 @@
   <input type="radio" name="orientation" value="vertically">Vertical</p>
   <input type="submit" value="Submit"></p>
 </form>
+<% end %>
+<% if @fleet.empty? %>
+  <div>
+    <form action="/game">
+      <input type="submit" value="Start game">
+    </form>
+  </div>
+<% end %>
 <%= @show_board %>

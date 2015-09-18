@@ -10,6 +10,7 @@ class BattleshipWeb < Sinatra::Base
   enable :sessions
 
   $board = Board.new(Cell)
+  $board_comp = Board.new(Cell)
 
   set :views, proc { File.join(root, '..', 'views')}
 
@@ -78,6 +79,28 @@ class BattleshipWeb < Sinatra::Base
     erb :ship_placement
 
   end
+
+    get '/game' do
+
+      @fire_coor = params[:fire_coor]
+
+      unless $board_comp.ships_count == 5
+        comp_fleet = [Ship.aircraft_carrier, Ship.battleship, Ship.destroyer, Ship.submarine, Ship.patrol_boat]
+        comp_fleet.each do |comp_ship|
+          $board_comp.comp_place(comp_ship)
+        end
+      end
+
+
+      if @fire_coor
+        $board_comp.shoot_at(@fire_coor.to_sym)
+      end
+
+      @show_my_board = $board.show_board(Printer)
+      @show_comp_board = $board_comp.show_board(Printer)
+      
+      erb :game
+    end
 
     # if session[:board] != nil
     #   puts "IT IS NOT SAVED!!!!"

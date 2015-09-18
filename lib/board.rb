@@ -17,6 +17,19 @@ class Board
 		put_on_grid_if_possible(coords, ship)
 	end
 
+	def comp_place(ship)
+		rand_l = [*"A".."J"].sample
+		rand_n = [*1..10].sample
+		rand_coor = rand_l + rand_n.to_s
+		final_rand_coord = rand_coor.to_sym
+
+		begin
+			place(ship, final_rand_coord, [:horizontally, :vertically].sample)
+		rescue
+			comp_place(ship)
+		end
+	end
+
 	def show_board(printer_class)
 		printer = printer_class.new
 		printer.print_board(self)

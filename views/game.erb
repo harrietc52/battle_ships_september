@@ -1,0 +1,10 @@
+<%= @show_my_board %>
+<div style='float:left; width:30px; height: 20px'> </div>
+<%= @show_comp_board %>
+<div style='height:330px; width:500px; display: inline-block; padding-top: 20px'>
+
+<h3>Enter a coorordinate to shoot at:</h3>
+<form action="/game">
+  <input type="text" name="fire_coor" size="4" maxlength="3" required>
+  <input type="submit" value="Shoot"
+</form>
