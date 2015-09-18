@@ -91,14 +91,20 @@ class BattleshipWeb < Sinatra::Base
         end
       end
 
-
       if @fire_coor
         $board_comp.shoot_at(@fire_coor.to_sym)
+        if $board_comp.loss?
+          @winner_message = "YOU'VE WON!"
+          erb :winner
+        end
+
       end
 
       @show_my_board = $board.show_board(Printer)
       @show_comp_board = $board_comp.show_board(Printer)
-      
+
+
+
       erb :game
     end
 

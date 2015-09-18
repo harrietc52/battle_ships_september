@@ -76,6 +76,14 @@ class Board
 		ships.count
 	end
 
+	def loss?
+
+      self.ships.each do |ship|
+          return false if ship.sunk? == false
+      end
+      return true
+  end
+
 
 private
 
